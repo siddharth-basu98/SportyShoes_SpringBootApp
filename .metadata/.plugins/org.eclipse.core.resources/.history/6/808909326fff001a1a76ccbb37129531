@@ -1,0 +1,26 @@
+package com.sporty_shoes.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.repository.CategoryRepository;
+
+@RestController
+public class CategoryController {
+	
+	@Autowired
+	private CategoryRepository categoryRepo ; 
+	
+	
+	@GetMapping("/categories")
+	public List<Category> getAllCategories(){
+		return categoryRepo.findAll() ;
+	}
+
+}

@@ -1,0 +1,62 @@
+package com.sporty_shoes.service.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.sporty_shoes.model.Purchase;
+import com.sporty_shoes.service.PurchaseService;
+
+
+@Service
+public class PurchaseServiceImpl implements PurchaseService {
+
+	@Override
+	public Purchase addPurchase(Purchase purchase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Purchase updatePurchase(Purchase purchase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void DeletePurchase(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Purchase> getAllPurchases() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Purchase getPurchaseById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Purchase> getAllPurchasesByDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Purchase> getAllPurchasesByUser(int userid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Purchase> getAllPurchasesByProduct(int productid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

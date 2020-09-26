@@ -1,0 +1,6 @@
+insert into User(userid, firstname, lastname, age, emailid, password) 
+values(1,'Siddharth', 'Basu', 22, 'siddharthbasu98@gmail.com', 'siddharth98');
+insert into User(userid, firstname, lastname, age, emailid, password) 
+values(2,'Saphal', 'Patro', 23, 'saphal98@gmail.com', 'saphal98');
+
+

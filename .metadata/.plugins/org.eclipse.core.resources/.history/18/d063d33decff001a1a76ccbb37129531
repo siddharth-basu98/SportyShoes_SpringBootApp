@@ -1,0 +1,9 @@
+package com.sporty_shoes.service;
+
+import com.sporty_shoes.model.Product;
+
+public interface ProductService {
+	
+	public void addProduct(Product product) ; 
+
+}

@@ -1,0 +1,25 @@
+package com.sporty_shoes.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.model.Product;
+import com.sporty_shoes.repository.ProductRepository;
+
+@RestController
+public class ProductController {
+
+	@Autowired
+	private ProductRepository productRepository ; 
+	
+	@GetMapping("/product/category/{cid}")
+	public List<Product> getAllCategories(@PathVariable int cid){
+		return productRepo.findByCategory(cid) ; 
+	}
+	
+}

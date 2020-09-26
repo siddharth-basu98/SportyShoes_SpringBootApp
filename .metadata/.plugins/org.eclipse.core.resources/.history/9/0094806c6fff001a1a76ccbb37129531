@@ -1,0 +1,48 @@
+package com.sporty_shoes.service.impl;
+
+import java.util.List;
+
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.service.CategoryService;
+
+public class CategoryServiceImpl implements CategoryService{
+	
+	
+
+	@Override
+	public Category addCategory(Category category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Category updateCategory(Category category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteCategory(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Category> getAllCategories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Category> getCategoriesById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Category> getCategoriesByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

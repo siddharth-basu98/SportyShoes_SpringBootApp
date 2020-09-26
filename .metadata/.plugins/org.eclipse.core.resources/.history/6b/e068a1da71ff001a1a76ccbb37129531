@@ -1,0 +1,56 @@
+package com.sporty_shoes.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.repository.CategoryRepository;
+import com.sporty_shoes.service.CategoryService;
+
+@RestController
+public class CategoryController {
+	
+	@Autowired
+	private CategoryService categoryService ; 
+	
+	@PostMapping("admin/category")
+	public Category addCategory(@RequestBody Category category) {
+		return categoryService.addCategory(category);
+	}
+	
+	
+	@PutMapping("admin/category")
+	public Category updateCategory(@RequestBody Category category) {
+		return categoryService.updateCategory(category) ; 
+	}
+	
+	
+	@DeleteMapping("admin/category/{cat_id}")
+	public void deleteCategory(@PathVariable int cat_id) {
+		categoryService.deleteCategory(cat_id); 
+	}
+	
+	
+	@GetMapping("admin/categories")
+	public List<Category> getAllCategories(){
+		return categoryService.getAllCategories() ;
+	}
+	
+	
+	@GetMapping("admin/category/{cat_id}")
+	public Optional<Category> getCategoryById(@PathVariable int cat_id){
+		return categoryService.getCategoryById(cat_id)
+	}
+	
+	
+
+}

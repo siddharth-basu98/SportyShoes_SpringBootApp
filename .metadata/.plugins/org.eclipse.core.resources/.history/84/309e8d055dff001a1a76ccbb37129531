@@ -1,0 +1,6 @@
+package com.sporty_shoes.repository;
+
+
+public class ProductRepository extends JpaRepository<, Integer>{
+
+}
