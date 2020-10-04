@@ -1,8 +1,0 @@
-package com.sporty_shoes.repository;
-
-import org.springframework.stereotype.Repository;
-
-@Repository
-public class ProductRepository extends JpaRepository<Product, Integer>{
-
-}

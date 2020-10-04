@@ -2,7 +2,10 @@ package com.sporty_shoes.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.sporty_shoes.model.Product;
 import com.sporty_shoes.model.Purchase;
@@ -32,10 +36,36 @@ public class PurchaseController {
 	
 	
 	
-	@PostMapping("/admin/purchase/{userid}/{productid}")
-	public Purchase addPurchase(@RequestBody Purchase purchase, @PathVariable int userid, @PathVariable int productid) {
-		User u = userService.getUserById(userid) ; 
-		Product p = productService.getProductById(productid) ; 
+	@PostMapping("/admin/purchase/{user_id}/{product_id}")
+	public Purchase addPurchase(@RequestBody Purchase purchase, 
+			@PathVariable int user_id, @PathVariable int product_id,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		User u ; 
+		Product p ; 
+		try {
+			u = userService.getUserById(user_id) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The user of the purchase is not found") ; 
+		}
+		
+		try {
+			p = productService.getProductById(product_id) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The product of the purchase is not found") ; 
+		}
+		
+		if(u==null || p==null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The product of the purchase is not found") ; 
+		}
+		
 		
 		purchase.setProduct(p);
 		purchase.setUser(u);
@@ -44,43 +74,119 @@ public class PurchaseController {
 	}
 	
 	
-	@PutMapping("/admin/purchase/{userid}/{productid}")
-	public Purchase updatePurchase(@RequestBody Purchase purchase, @PathVariable int userid, @PathVariable int productid) {
+	@PutMapping("/admin/purchase/{user_id}/{product_id}")
+	public Purchase updatePurchase(@RequestBody Purchase purchase, 
+			@PathVariable int user_id, @PathVariable int product_id,
+			javax.servlet.http.HttpServletRequest request) {
 		
-		User u = userService.getUserById(userid) ; 
-		Product p = productService.getProductById(productid) ; 
 		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		User u ; 
+		Product p ; 
+		try {
+			u = userService.getUserById(user_id) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The user of the purchase is not found") ; 
+		}
+		
+		try {
+			p = productService.getProductById(product_id) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The product of the purchase is not found") ; 
+		}
+		
+		if(u==null || p==null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The product of the purchase is not found") ; 
+		}
+		
+	
 		purchase.setProduct(p);
 		purchase.setUser(u);
 		
 		return purchaseService.updatePurchase(purchase) ;  
 	}
 	
-	@DeleteMapping("/admin/purchase/{id}")
-	public void deletePurchase(int purchaseid) {
-		purchaseService.DeletePurchase(purchaseid);
+	
+	
+	@DeleteMapping("/admin/purchase/{purchase_id}")
+	public void deletePurchase(@PathVariable int purchase_id, javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		purchaseService.DeletePurchase(purchase_id);
 	}
+	
 	
 	
 	@GetMapping("/admin/purchases")
-	public List<Purchase> getAllPurchases() {
+	public List<Purchase> getAllPurchases(javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		
 		return purchaseService.getAllPurchases() ;
 	}
 	
-	@GetMapping("/admin/purchase/{purchaseid}")
-	public Purchase getPurchaseById(@PathVariable int purchaseid) {
-		return purchaseService.getPurchaseById(purchaseid) ; 
+	
+	
+	@GetMapping("/admin/purchase/{purchase_id}")
+	public Purchase getPurchaseById(@PathVariable int purchase_id,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		
+		return purchaseService.getPurchaseById(purchase_id) ; 
 	}
 	
 	
-	@GetMapping("/admin/purchase/user/{userid}")
-	public List<Purchase> getPurchaseByUser(@PathVariable int userid) {
-		return purchaseService.getAllPurchasesByUser(userid) ; 
+	@GetMapping("/admin/purchase/user/{user_id}")
+	public List<Purchase> getPurchaseByUser(@PathVariable int user_id,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		
+		return purchaseService.getAllPurchasesByUser(user_id) ; 
 	}
 	
-	@GetMapping("/admin/purchase/product/{productid}")
-	public List<Purchase> getPurchaseByProduct(@PathVariable int productid) {
-		return purchaseService.getAllPurchasesByProduct(productid) ; 
+	@GetMapping("/admin/purchase/product/{product_id}")
+	public List<Purchase> getPurchaseByProduct(@PathVariable int product_id,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		return purchaseService.getAllPurchasesByProduct(product_id) ; 
 	}
 	
 	

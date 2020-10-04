@@ -3,7 +3,9 @@ package com.sporty_shoes.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.sporty_shoes.model.User;
 import com.sporty_shoes.repository.UserRepository;
@@ -18,47 +20,113 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User addUser(User user) {
-		return userRepository.save(user) ; 
+		try {
+			User u = userRepository.save(user) ; 
+			return u ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to add User due to a bad request") ; 
+		}
+		
 	}
 
 	@Override
 	public User updateUser(User user) {
-		return userRepository.save(user) ; 
+		try {
+			User u = userRepository.save(user) ; 
+			return u ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to update User due to a bad request") ; 
+		}
 	}
 
 	@Override
 	public void deleteUser(int id) {
-		userRepository.deleteById(id);
+		try {
+			userRepository.deleteById(id);
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for the given ID", e) ; 
+		}
+		
 	}
 
 	@Override
 	public User getUserById(int id) {
-		return userRepository.findById(id).get() ; 
+		
+		try {
+			User u = userRepository.findById(id).get() ;
+			return u ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for the given ID") ; 
+		}
 	}
+	
+	
 
 	@Override
 	public List<User> getAllUser() {
-		return userRepository.findAll() ; 
+		List<User> userList = userRepository.findAll() ; 
+		
+		if(userList.size()==0) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are currently no users in the system") ; 
+		}
+		else {
+			return userList ; 
+		}
 	}
 
 	@Override
 	public List<User> getUserByFirstName(String firstname) {
-		return userRepository.findByFirstname(firstname) ; 
+		
+		List<User> userList = userRepository.findByFirstname(firstname) ; 
+		
+		if(userList.size()==0) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are currently no users with the requested first name in the system") ; 
+		}
+		else {
+			return userList ; 
+		}
+		
 	}
 
 	@Override
 	public List<User> getUserByLastName(String lastname) {
-		return userRepository.findByLastname(lastname) ; 
+		List<User> userList = userRepository.findByLastname(lastname) ; 
+
+		if(userList.size()==0) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are currently no users with the requested last name in the system") ; 
+		}
+		else {
+			return userList ; 
+		}
+		
 	}
 
+	
 	@Override
 	public List<User> getUserByAge(int age) {
-		return userRepository.findByAge(age) ; 
+	
+		List<User> userList = userRepository.findByAge(age) ; 
+		
+		if(userList.size()==0) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are currently no users with the requested age in the system") ; 
+		}
+		else {
+			return userList ; 
+		}
+		
 	}
 
+	
 	@Override
-	public List<User> getUserByEmail(String emailid) {
-		return userRepository.findByEmailid(emailid) ; 
+	public User getUserByEmail(String emailid) {
+			
+			User user = userRepository.findByEmailid(emailid) ; 
+			if(user==null) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are currently no users with the requested emailID in the system") ; 
+			}
+			else {
+				return user ; 
+			}
 	}
 
 }

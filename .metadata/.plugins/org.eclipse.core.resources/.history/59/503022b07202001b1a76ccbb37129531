@@ -1,0 +1,69 @@
+package com.sporty_shoes.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.repository.CategoryRepository;
+import com.sporty_shoes.service.CategoryService;
+import com.sporty_shoes.service.impl.CategoryServiceImpl;
+
+@RestController
+public class CategoryController {
+	
+	@Autowired
+	private CategoryService categoryService ; 
+	
+	
+	@PostMapping("admin/category")
+	public Category addCategory(@RequestBody Category category,
+			javax.servlet.http.HttpServletRequest request) {
+		return categoryService.addCategory(category);
+	}
+	
+	
+	@PutMapping("admin/category")
+	public Category updateCategory(@RequestBody Category category,
+			javax.servlet.http.HttpServletRequest request) {
+		return categoryService.updateCategory(category) ; 
+	}
+	
+	
+	@DeleteMapping("admin/category/{cat_id}")
+	public void deleteCategory(@PathVariable int cat_id,
+			javax.servlet.http.HttpServletRequest request) {
+		categoryService.deleteCategory(cat_id); 
+	}
+	
+	
+	@GetMapping("admin/categories")
+	public List<Category> getAllCategories(javax.servlet.http.HttpServletRequest request){
+		return categoryService.getAllCategories() ;
+	}
+	
+	
+	@GetMapping("admin/category/{cat_id}")
+	public Category getCategoryById(@PathVariable int cat_id,
+			javax.servlet.http.HttpServletRequest request){
+		return categoryService.getCategoryById(cat_id) ; 
+	}
+	
+	
+	@GetMapping("admin/category/name/{cat_name}")
+	public List<Category> getCategoriesByName(@PathVariable String cat_name,
+			javax.servlet.http.HttpServletRequest request){
+		return categoryService.getCategoriesByName(cat_name) ; 
+	}
+	
+
+
+}

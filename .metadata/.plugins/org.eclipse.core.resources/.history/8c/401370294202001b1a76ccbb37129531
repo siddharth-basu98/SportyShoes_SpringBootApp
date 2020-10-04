@@ -1,0 +1,28 @@
+package com.sporty_shoes.controller;
+
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Admin;
+
+@RestController
+public class AdminController {
+	
+	
+	@PostMapping("/login")
+	public Admin login(@RequestBody Admin admin, ModelMap map,  javax.servlet.http.HttpServletRequest request) {
+		String username = admin.getUsername() ; 
+		String password = admin.getPassword() ; 
+		
+		Admin a = 
+		
+		return admin;
+		
+		
+		
+		
+	}
+
+}

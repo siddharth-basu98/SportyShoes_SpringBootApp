@@ -1,0 +1,89 @@
+package com.sporty_shoes.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.sporty_shoes.model.Admin;
+import com.sporty_shoes.repository.AdminRepository;
+import com.sporty_shoes.service.AdminService;
+
+@RestController
+public class AdminController {
+	
+	@Autowired
+	private AdminService adminService ; 
+	
+	@PostMapping("/login")
+	public Admin login(@RequestBody Admin admin, javax.servlet.http.HttpServletRequest request) {
+		String username = admin.getUsername() ; 
+		String password = admin.getPassword() ; 
+		
+		Admin a = adminService.getAdminByUserName(username) ; 
+		
+		
+		if(a==null) {
+			
+			System.out.println("a is null");
+			return null ; 
+		}
+	
+		
+		if(a.getPassword().equals(password)==false) {
+			return null ; 
+		}
+		
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("admin_id", a.getUsername()) ; 
+		
+		return admin;
+		
+	}
+	
+	@PutMapping("/changePassword")
+	public Admin changePassword(@RequestBody Admin admin, javax.servlet.http.HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/login.") ; 
+	    }
+		
+		if (session.getAttribute("admin_id") != admin.getUsername()) {
+			  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are unauthorized to change another admin's password") ; 
+		}
+		
+		String username = admin.getUsername() ; 
+		String password = admin.getPassword() ; 
+		
+		Admin a = adminService.getAdminByUserName(username) ; 
+		
+		admin.setPassword(password);
+		
+		return adminService.createAdmin(admin) ; 
+		
+	}
+	
+	@PostMapping("/admin")
+	public Admin createAdmin(@RequestBody Admin admin, javax.servlet.http.HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/login.") ; 
+	    }
+		
+		return adminService.createAdmin(admin) ; 
+		
+	}
+	
+	
+
+}

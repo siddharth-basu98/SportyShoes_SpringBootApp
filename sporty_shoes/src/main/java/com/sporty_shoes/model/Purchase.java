@@ -4,14 +4,17 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.TableGenerator;
 
 @Entity
 public class Purchase {
 
 	@Id
-	@GeneratedValue
+	@TableGenerator(name="purGen", initialValue=7)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="purGen")
 	private int purchaseid ; 
 	
 	private int quantity ;

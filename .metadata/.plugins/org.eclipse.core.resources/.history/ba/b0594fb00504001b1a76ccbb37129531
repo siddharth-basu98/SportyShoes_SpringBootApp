@@ -1,0 +1,15 @@
+package com.sporty_shoes.service;
+
+import java.util.List;
+
+import com.sporty_shoes.model.Admin;
+
+public interface AdminService {
+	
+	public Admin login() ; 
+	public Admin changePassword() ; 
+	
+	public List<Admin> getAllAdmins() ; 
+	public List<Admin> getAdminByUserName() ; 
+
+}

@@ -1,0 +1,75 @@
+package com.sporty_shoes.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.sporty_shoes.exception.BusinessException;
+import com.sporty_shoes.model.Category;
+import com.sporty_shoes.repository.CategoryRepository;
+import com.sporty_shoes.service.CategoryService;
+
+
+@Service
+public class CategoryServiceImpl implements CategoryService{
+	
+	@Autowired
+	private CategoryRepository categoryRepository ; 
+
+	@Override
+	public Category addCategory(Category category) {
+		
+		try {
+			return categoryRepository.save(category) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't add the category due to a bad request") ; 
+		}
+		
+	}
+
+	@Override
+	public Category updateCategory(Category category) {
+		
+		try {
+			return categoryRepository.save(category) ; 
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't add the category due to a bad request") ; 
+		}
+	}
+
+	@Override
+	public void deleteCategory(int id) throws BusinessException {
+		
+		try {
+			categoryRepository.deleteById(id);
+		}catch(Exception e) {
+			throw new BusinessException("The category id you wan't to delete doesn't exist") ; 
+		}
+		
+		
+	}
+
+	@Override
+	public List<Category> getAllCategories() {
+		
+		List<Category> categoryList = categoryRepository.findAll() ; 
+		
+		
+		return categoryRepository.findAll() ; 
+	}
+
+	@Override
+	public Category getCategoryById(int id) {
+		return categoryRepository.findById(id).get() ; 
+	}
+
+	@Override
+	public List<Category> getCategoriesByName(String name) {
+		return categoryRepository.findByName(name) ; 
+	}
+
+}

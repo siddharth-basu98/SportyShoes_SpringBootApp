@@ -1,0 +1,62 @@
+package com.sporty_shoes.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.sporty_shoes.exception.BusinessException;
+import com.sporty_shoes.model.Admin;
+import com.sporty_shoes.repository.AdminRepository;
+import com.sporty_shoes.service.AdminService;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+
+	@Autowired
+	private AdminRepository adminRepository ; 
+	
+
+	@Override
+	public Admin createAdmin(Admin admin) {
+		try {
+			Admin a = adminRepository.save(admin) ; 
+			return a ; 
+		}catch(Exception e){
+			 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Enter valid admin details to create new admin") ; 
+		}
+		
+	}
+	
+
+	@Override
+	public void deleteAdminById(String username) {
+		try {
+			adminRepository.deleteById(username);
+		}catch(Exception e){
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Enter valid admin id to delete existing admin") ; 
+		}
+		
+		
+	}
+
+	@Override
+	public List<Admin> getAllAdmins() throws BusinessException {
+		
+		List<Admin> adminList = adminRepository.findAll() ; 
+		
+		if(adminList.size()==0) {
+			throw new BusinessException("There are currently no users at present") ; 
+		}
+	}
+
+	@Override
+	public Admin getAdminByUserName(String name) {
+		return adminRepository.findByUsername(name) ; 
+	}
+
+
+}

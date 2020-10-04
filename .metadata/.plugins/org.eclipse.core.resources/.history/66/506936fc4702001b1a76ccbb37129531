@@ -1,0 +1,95 @@
+package com.sporty_shoes.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Product;
+import com.sporty_shoes.model.Purchase;
+import com.sporty_shoes.model.User;
+import com.sporty_shoes.service.ProductService;
+import com.sporty_shoes.service.PurchaseService;
+import com.sporty_shoes.service.UserService;
+
+@RestController
+public class PurchaseController {
+
+	@Autowired
+	private PurchaseService purchaseService ; 
+	
+	@Autowired
+	private UserService userService ; 
+	
+	@Autowired
+	private ProductService productService ; 
+	
+	
+	
+	@PostMapping("/admin/purchase/{userid}/{productid}")
+	public Purchase addPurchase(@RequestBody Purchase purchase, 
+			@PathVariable int userid, @PathVariable int productid,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		User u = userService.getUserById(userid) ; 
+		Product p = productService.getProductById(productid) ; 
+		
+		purchase.setProduct(p);
+		purchase.setUser(u);
+		
+		return purchaseService.addPurchase(purchase) ; 
+	}
+	
+	
+	@PutMapping("/admin/purchase/{userid}/{productid}")
+	public Purchase updatePurchase(@RequestBody Purchase purchase, 
+			@PathVariable int userid, @PathVariable int productid,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		User u = userService.getUserById(userid) ; 
+		Product p = productService.getProductById(productid) ; 
+		
+		purchase.setProduct(p);
+		purchase.setUser(u);
+		
+		return purchaseService.updatePurchase(purchase) ;  
+	}
+	
+	@DeleteMapping("/admin/purchase/{id}")
+	public void deletePurchase(int purchaseid, javax.servlet.http.HttpServletRequest request) {
+		purchaseService.DeletePurchase(purchaseid);
+	}
+	
+	
+	@GetMapping("/admin/purchases")
+	public List<Purchase> getAllPurchases(javax.servlet.http.HttpServletRequest request) {
+		return purchaseService.getAllPurchases() ;
+	}
+	
+	@GetMapping("/admin/purchase/{purchaseid}")
+	public Purchase getPurchaseById(@PathVariable int purchaseid,
+			javax.servlet.http.HttpServletRequest request) {
+		return purchaseService.getPurchaseById(purchaseid) ; 
+	}
+	
+	
+	@GetMapping("/admin/purchase/user/{userid}")
+	public List<Purchase> getPurchaseByUser(@PathVariable int userid,
+			javax.servlet.http.HttpServletRequest request) {
+		return purchaseService.getAllPurchasesByUser(userid) ; 
+	}
+	
+	@GetMapping("/admin/purchase/product/{productid}")
+	public List<Purchase> getPurchaseByProduct(@PathVariable int productid) {
+		return purchaseService.getAllPurchasesByProduct(productid) ; 
+	}
+	
+	
+	
+}

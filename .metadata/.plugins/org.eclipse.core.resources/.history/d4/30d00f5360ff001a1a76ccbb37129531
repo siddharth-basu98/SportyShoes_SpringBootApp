@@ -1,6 +1,0 @@
-package com.sporty_shoes.controller;
-
-@RestController
-public class CategoryController {
-
-}

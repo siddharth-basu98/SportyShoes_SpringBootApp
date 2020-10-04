@@ -1,6 +1,0 @@
-package com.sporty_shoes.repository;
-
-
-public class CourseRepository extends JpaRepository<, Integer>{
-
-}

@@ -1,0 +1,46 @@
+package com.sporty_shoes.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sporty_shoes.model.Admin;
+import com.sporty_shoes.repository.AdminRepository;
+import com.sporty_shoes.service.AdminService;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+
+	@Autowired
+	private AdminRepository adminRepository ; 
+	
+	
+
+	@Override
+	public Admin createAdmin(Admin admin) {
+		return adminRepository.save(admin) ; 
+	}
+
+	
+
+	@Override
+	public void deleteAdminById(String username) {
+		adminRepository.deleteById(username);
+	}
+
+	@Override
+	public List<Admin> getAllAdmins() {
+		return adminRepository.findAll() ; 
+	}
+
+	@Override
+	public Admin getAdminByUserName(String name) {
+		return adminRepository.findByUsername(name) ; 
+	}
+
+
+	
+
+}

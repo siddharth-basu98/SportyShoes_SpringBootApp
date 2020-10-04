@@ -1,0 +1,11 @@
+package com.sporty_shoes.service;
+
+import com.sporty_shoes.model.Admin;
+
+public interface AdminService {
+	
+	public Admin login() ; 
+	public Admin changePassword() ; 
+	
+
+}

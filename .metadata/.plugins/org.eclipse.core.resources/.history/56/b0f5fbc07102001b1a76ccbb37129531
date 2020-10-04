@@ -1,0 +1,46 @@
+package com.sporty_shoes.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sporty_shoes.model.Admin;
+import com.sporty_shoes.repository.AdminRepository;
+
+@RestController
+public class AdminController {
+	
+	@Autowired
+	private AdminRepository adminRepository ; 
+	
+	@PostMapping("/login")
+	public Admin login(@RequestBody Admin admin, javax.servlet.http.HttpServletRequest request) {
+		String username = admin.getUsername() ; 
+		String password = admin.getPassword() ; 
+		
+		Admin a = adminRepository.findById(username).get() ; 
+		
+		
+		if(a==null) {
+			
+			System.out.println("a is null");
+			return null ; 
+		}
+	
+		
+		if(a.getPassword().equals(password)==false) {
+			return null ; 
+		}
+		
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("admin_id", a.getUsername()) ; 
+		
+		return admin;
+		
+	}
+
+}

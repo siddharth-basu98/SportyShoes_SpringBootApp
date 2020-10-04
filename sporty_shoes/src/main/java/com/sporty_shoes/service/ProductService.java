@@ -2,6 +2,7 @@ package com.sporty_shoes.service;
 
 import java.util.List;
 
+import com.sporty_shoes.exception.BusinessException;
 import com.sporty_shoes.model.Product;
 
 public interface ProductService {
@@ -12,8 +13,8 @@ public interface ProductService {
 	
 	public List<Product> getAllProduct() ; 
 	Product getProductById(int id) ; 
-	public List<Product> getProductByName(String name) ; 
-	public List<Product> getProductByBrand(String brand) ; 
-	public List<Product> getProductByCategory(int categoryid) ;
+	public List<Product> getProductByName(String name)  ; 
+	public List<Product> getProductByBrand(String brand)  ; 
+	public List<Product> getProductByCategory(int categoryid)  ;
 
 }
