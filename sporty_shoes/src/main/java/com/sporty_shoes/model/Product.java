@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Product {
 	
 	@Id
-	@TableGenerator(name="prodGen", initialValue=8)
+	@TableGenerator(name="prodGen", initialValue=7)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="prodGen")
 	private int productid ; 
 	

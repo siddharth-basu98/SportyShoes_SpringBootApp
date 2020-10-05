@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Category {
 	
 	@Id
-	@TableGenerator(name="catGen", initialValue=4)
+	@TableGenerator(name="catGen", initialValue=3)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="catGen")
 	private int categoryid ; 
 	

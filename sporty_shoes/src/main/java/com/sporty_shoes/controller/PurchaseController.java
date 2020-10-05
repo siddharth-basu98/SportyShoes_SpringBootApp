@@ -1,5 +1,7 @@
 package com.sporty_shoes.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -158,6 +160,36 @@ public class PurchaseController {
 		
 		
 		return purchaseService.getPurchaseById(purchase_id) ; 
+	}
+	
+	
+	
+	@GetMapping("/admin/purchase/date/{date}")
+	public List<Purchase> getPurchaseById(@PathVariable String date,
+			javax.servlet.http.HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+	    
+		if (session.getAttribute("admin_id") == null) {
+		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login to access the functionality. Visit localhost:8080/admin/login") ; 
+	    }	
+		
+		 LocalDateTime dateTime ; 
+		
+		try {
+			StringBuilder date_string = new StringBuilder() ; 
+			date_string.append(date) ; 
+			date_string.append(" 00:00:00") ; 
+			String actual_date = date_string.toString() ; 
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+		    dateTime = LocalDateTime.parse(actual_date, formatter);
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Enter the date in a valid YYYY:MM:DD format") ;
+		}
+		
+		
+		return purchaseService.getAllPurchasesByDate(dateTime) ; 
 	}
 	
 	

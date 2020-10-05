@@ -15,7 +15,7 @@ import javax.persistence.TableGenerator;
 public class User {
 	
 	@Id
-	@TableGenerator(name="userGen", initialValue=4)
+	@TableGenerator(name="userGen", initialValue=3)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="userGen")
 	private int userid ; 
 	

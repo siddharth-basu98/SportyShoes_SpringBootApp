@@ -13,7 +13,7 @@ import javax.persistence.TableGenerator;
 public class Purchase {
 
 	@Id
-	@TableGenerator(name="purGen", initialValue=7)
+	@TableGenerator(name="purGen", initialValue=6)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="purGen")
 	private int purchaseid ; 
 	
