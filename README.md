@@ -4,7 +4,7 @@ SportyShoes is aiming to digitise a project SportyShoes.com which is a online ec
 
 **Currently the system performs admin specific functionalities (as mentioned in the problem statement), a sample get all products endpoint is defined as “/products” which requires no admin login. 
 
-**All the admin REST endpoints have the prerequisite that an admin MUST first log in (“admin/login”). All admin endpoints start with “/admin”.
+**All the admin REST endpoints have the prerequisite that an admin MUST first log in and start the session(“admin/login”). After that till /logout is not fired, all endpoints function normally. All admin endpoints start with “/admin”.
 
 
 
