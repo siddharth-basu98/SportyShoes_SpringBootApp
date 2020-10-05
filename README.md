@@ -48,7 +48,7 @@ Enjoy testing out all the APIs endpoints.
 
 ##
 
-# SPRING BOOT CONCEPTS AND TECHNIQUES USED:
+# SpringBoot concepts and techniques used:
 
 ### Annotations: 
 Various annotations such as @RestController, @Service, @Repository, @Entity, @Autowired, @Configuration etc were used heavily or bean creation and other corresponding purposes. 
