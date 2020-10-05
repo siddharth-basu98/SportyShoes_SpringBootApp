@@ -45,3 +45,34 @@ You may change the password or even add new admin later on by first logging in w
 ### Step 6:
 Enjoy testing out all the APIs endpoints.
 
+
+
+
+# SPRING BOOT CONCEPTS AND TECHNIQUES USED:
+
+### Annotations: 
+Various annotations such as @RestController, @Service, @Repository, @Entity, @Autowired, @Configuration etc were used heavily or bean creation and other corresponding purposes. 
+
+### Embedded Database H2: 
+The selected database for the system is the in memory small scale embedded database H2. 
+
+### Embedded Server: 
+The application runs on the embedded server on default port 8080. However if the port needs to be changed add  in the “application.properties” file “server.port=XXXX”, where XXXX is any port which is free on your system. 
+
+### Spring Data JPA: 
+The database operations are performed using the Spring Data JPA starter with SpringBoot. The Repository CRUD functions are all written using Spring Data JPA.
+
+### OnetoMany and ManyToOne (mapped by) annotations: 
+The relationships between the entities are defined using these annotations.
+
+### @Query and Joins: 
+Few complicated queries requiring a join between two entity tables, a @Query annotation and a custom query written in JPQL was used. 
+
+### CASCADE delete and update: 
+For entities having a join with other entities, if any of these entities is changed or deleted, it cascades its effect on the dependant entities as well. 
+
+### LAZY Fetching: 
+To reduced DB load, the fetch type for some services is set to a LAZY fetching. 
+
+### Exception handling via ResponseStatusException: 
+The Repsonse Status exception method is used to throw errors upon getting bad request, or a request not found etc. Appropriate HTTP Status Codes and personalised messages are sent for each of these exceptions. 
