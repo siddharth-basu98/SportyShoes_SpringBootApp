@@ -15,8 +15,10 @@ Start Up Admin username and password (POST request to “localhost:XXXX(default 
 	“password”:”root”
 }
 
+** Initial data entered in "data.sql" file in the application.properties. 
 
 
+# 
 # How to run the app
 
 ### Step 1:  
@@ -46,7 +48,7 @@ You may change the password or even add new admin later on by first logging in w
 Enjoy testing out all the APIs endpoints.
 
 
-##
+#
 
 # SpringBoot concepts and techniques used:
 
